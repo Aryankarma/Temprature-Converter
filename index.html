@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TempConv</title>
+
+    <!-- Google Fonts -->
+
+
+    <!-- font-awesome -->
+    <script src="https://kit.fontawesome.com/04dc8a005d.js" crossorigin="anonymous"></script>
+    <!-- Tailwind CSS -->
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Flowbite tailwind css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            /* background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(176,229,208,1) 40%, rgba(92,202,238,0.41) 90% ); */
+            background-image: linear-gradient(58.2deg, rgba(40, 91, 212, 0.73) -3%, rgba(171, 53, 163, 0.45) 49.3%, rgba(255, 204, 112, 0.37) 97.7%);
+            background-image: linear-gradient(45deg, rgba(40, 91, 212, 0.73) -3%, rgba(171, 53, 163, 0.45) 50%, rgba(255, 204, 112, 0.37) 100%);
+
+            /* background for animation */
+            background: linear-gradient(45deg, rgba(127, 0, 255, 0.6) 0%, rgba(0, 0, 255, 0.6) 25%, rgba(0, 255, 0, 0.6) 45%, rgba(255, 165, 0, 0.6) 60%, rgba(255, 255, 0, 0.6) 75%, rgba(255, 0, 0, 0.6) 100%);
+            overflow: hidden;
+            
+            /* testing CSS gradient animation */
+            background: linear-gradient(45deg, rgba(127, 0, 255, 0.6), rgba(0, 0, 255, 0.5), rgba(0, 255, 0, 0.5), rgba(255, 165, 0, 0.5), rgba(255, 255, 0, 0.5), rgba(255, 0, 0, 0.8));
+	        background-size: 600% 600%;
+	        animation: gradient 20s ease infinite;
+
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            
+            50% {
+                background-position: 100% 50%;
+            }
+            
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+
+        .mainCont {
+            margin: 5rem auto;
+            width: 60%;
+            padding: 5vw;
+            background-color: #333;
+            position: relative;
+            border-radius: 1rem;
+            box-shadow: 0px 0px 10px #333;
+        }
+
+        .convertBtn {
+            margin-top: 1rem;
+        }
+
+        .tempInput {
+            margin: 0 auto;
+            background-color: transparent;
+            border: 0 !important;
+            outline: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            color: white;
+        }
+
+        .tempInput:focus {
+            outline: 1px solid rgba(255, 255, 255, 0.5);
+            border: 0 !important;
+            box-shadow: none !important;
+        }
+
+        h1 {
+            color: white;
+            font-size: 1.8rem;
+            font-size: 1.8em;
+            font-weight: 600;
+
+            /* text-align: center;
+            margin-top: 4rem;
+            color: #333 !important;
+            font-weight: 700; */
+
+        }
+
+        h4 {
+            color: white;
+            font-size: 1rem;
+        }
+
+        span {
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: 300ms;
+        }
+
+        .result {
+            font-size: 1rem;
+            font-weight: 600;
+            transition: 300ms;
+            color: white;
+            background-image: linear-gradient(109.6deg, rgba(254, 253, 205, 1) 11.2%, rgba(163, 230, 255, 1) 91.1%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="mainCont">
+        <h1>Celcius to Farhenite Converter</h1>
+        <h4>Enter celcius temprature to convert:</h4>
+        <input class="tempInput" min="0" max="100" type="number" name="temp" id="temp" placeholder="52&#176;C"
+            autofocus><i></i>
+        <br>
+        <span class="chngKelvin">Kelvin: </span><br>
+        <span class="chngFarenheit">Farhenite: </span>
+
+        <br>
+        <button type="button"
+            class="convertBtn text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-2 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Convert
+            Temprature</button>
+    </div>
+
+    <!-- javascript code -->
+    <script>
+        function getTemp() {
+            var temprature = document.querySelector(".tempInput").value;
+            if (temprature > 100 || temprature < 0) {
+                alert("Please enter a value between 0-100");
+                document.querySelector(".tempInput").value = "100";
+                temprature = document.querySelector(".tempInput").value;
+            }
+            // 0°C + 273.15 = 273.15 k
+            var toKelvin = + temprature + 273.15;
+            // (0°C × 9/5) + 32 = 32°F
+            var toFarenheit = + (temprature * 1.8) + 32;
+            document.querySelector(".chngKelvin").innerHTML = "Kelvin: " + toKelvin;
+            document.querySelector(".chngFarenheit").innerHTML = "Farhenite: " + toFarenheit;
+            document.querySelector(".chngKelvin").classList.add("result");
+            document.querySelector(".chngFarenheit").classList.add("result");
+        }
+        document.addEventListener("keypress", (key) => {
+            if (key.key == "Enter") {
+                getTemp();
+            }
+        })
+        document.querySelector(".convertBtn").addEventListener("click", getTemp);
+    </script>
+
+</body>
+
+</html>
